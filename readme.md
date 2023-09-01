@@ -11,7 +11,8 @@
 2. Затем, необходимо загрузить файл compose.yml при помощи curl:
 ```curl https://raw.githubusercontent.com/inq1337/minio-nginx/main/compose.yml > compose.yml```
 3. В этом файле, при помощи текстового редактора (например, nano), нужно отредактировать следующие строки, заменив значения на свои:
-    ```services:
+    ```
+    services:
       s3:
         ...
         environment:
