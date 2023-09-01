@@ -23,7 +23,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - S3_BUCKET_NAME=test
+      - S3_BUCKET_NAME=BUCKET_NAME
       - AWS_ACCESS_KEY_ID=LOGIN
       - AWS_SECRET_ACCESS_KEY=PASSWORD
       - S3_SERVER=172.20.0.2
