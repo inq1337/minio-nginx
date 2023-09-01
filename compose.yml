@@ -1,0 +1,46 @@
+services:
+  s3:
+    image: quay.io/minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    volumes:
+      - ~/minio/data:/data
+    environment:
+      - MINIO_ROOT_USER=LOGIN
+      - MINIO_ROOT_PASSWORD=PASSWORD
+    command: server --console-address ":9090" /data
+    networks:
+      net:
+        ipv4_address: 172.20.0.2
+
+  nginx-s3-gateway:
+    image: ghcr.io/nginxinc/nginx-s3-gateway/nginx-oss-s3-gateway:latest-njs-oss
+    depends_on:
+      - s3
+    container_name: nginx-s3-gateway
+    ports:
+      - "80:80"
+    environment:
+      - S3_BUCKET_NAME=test
+      - AWS_ACCESS_KEY_ID=LOGIN
+      - AWS_SECRET_ACCESS_KEY=PASSWORD
+      - S3_SERVER=172.20.0.2
+      - S3_SERVER_PORT=9000
+      - S3_SERVER_PROTO=http
+      - S3_REGION=eu
+      - S3_STYLE=path
+      - AWS_SIGS_VERSION=4
+      - ALLOW_DIRECTORY_LIST=true
+      - PROXY_CACHE_INACTIVE=1s
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
