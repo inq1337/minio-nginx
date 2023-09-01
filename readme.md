@@ -9,8 +9,7 @@
 1. Создаём папку, которая позже будет примонтирована к контейнеру minio:
 ```mkdir -p ~/minio/data```
 2. Затем, необходимо загрузить файл compose.yml при помощи curl:
-```curl https://raw.githubusercontent.com/inq1337/minio-nginx/main/compose.yml > compose.yml
-```
+```curl https://raw.githubusercontent.com/inq1337/minio-nginx/main/compose.yml > compose.yml```
 3. В этом файле, при помощи текстового редактора (например, nano), нужно отредактировать следующие строки, заменив значения на свои:
     ```services:
       s3:
